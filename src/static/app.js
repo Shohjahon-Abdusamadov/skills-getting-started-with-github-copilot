@@ -52,6 +52,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Clear loading message
       activitiesList.innerHTML = "";
+      // Clear activity select options except the default placeholder
+      const firstOption = activitySelect.querySelector('option');
+      activitySelect.innerHTML = '';
+      if (firstOption) activitySelect.appendChild(firstOption);
 
       // Populate activities list
       Object.entries(activities).forEach(([name, details]) => {
@@ -113,6 +117,8 @@ document.addEventListener("DOMContentLoaded", () => {
         messageDiv.textContent = result.message;
         messageDiv.className = "success";
         signupForm.reset();
+        // Refresh activities so the new participant appears without reloading the page
+        fetchActivities();
       } else {
         messageDiv.textContent = result.detail || "An error occurred";
         messageDiv.className = "error";
